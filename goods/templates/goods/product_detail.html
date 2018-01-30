@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{%load staticfiles%}
+{% load mptt_tags %}
+
+{% block breadcrumb %}
+<div class="container "> 
+	<ol class="breadcrumb">
+		<li><a href="{% url 'home' %} ">Главная</a></li>
+		{% for crumb in product.category.get_family %}
+			<li>
+				<a href="{{ crumb.get_absolute_url }}" alt="">
+					{{crumb.name}}
+				</a>
+			</li>
+		{% endfor %}
+		
+		<li class="active">{{product.name}}</li>
+	</ol>
+           
+</div>
+{% endblock breadcrumb %}
+
+{% block title %}
+  {{ product.name }}
+{% endblock %}
+{% block content %}
+  <div class="product-detail">
+    <div class="col-sm-4">
+		
+		{% for photo in photos %}
+			<img src="{{ photo.image.thumb_url }}" alt=" " class="img-responsive" />
+		{% endfor %}
+    </div>
+    <div class="col-sm-8">
+		<h1>{{ product.name }} -- {{product.brand.name}}</h1>
+		
+		<h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
+		<p class="price">
+			{{ product.price }} UAH.
+		</p>
+		
+		{% if product.is_available %}
+			<form action="{% url "cart:add_to_cart" product.id %}" method="post" class="form-inline">
+				{% csrf_token %}
+				<label for="id_quantity">Количество:</label>
+				<input id="id_quantity" name="quantity" type="number" class="form-control" size="2" />
+				<input id="id_update" name="update" type="hidden" value="False" />
+				<button type="submit" class="btn btn-success">
+				<i class="fa fa-shopping-basket   " aria-hidden="true"></i>
+				</button>
+			</form>
+		{% else %}
+		<h3>Нет в наличии</h3>
+		{% endif %}
+		<span>
+			{{ product.description | linebreaks}}
+		</span>
+    </div>
+  </div>
+{% endblock %}

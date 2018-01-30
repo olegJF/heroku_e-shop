@@ -1,0 +1,68 @@
+body {
+	font-family: "RobotoRegular", sans-serif;
+	font-size: 16px;
+}
+.cart{
+    
+}
+.empty{
+    color: #eee;
+}
+.not_empty{
+    color: deeppink;
+}
+.btn-default {
+    border-color: #fff;
+}
+.icon-bar {
+   color: black;
+}
+.navbar-default {
+    background-color: #Fff;
+    border-color: #fff;
+}
+.img{
+    margin: 20px auto;
+    text-align: center;
+    
+}
+.descr{
+    padding: inherit;
+    background-color: #eee;
+    padding: 10px;
+}
+.descr h4{
+    margin-bottom: 15px;
+    font-family: "RobotoCondensedLight";
+}
+.logo {
+	font-family: "NautilusPompiliusRegular";
+    font-size: 30px;
+}
+.fa-home{
+    color: forestgreen;
+}
+.fa-envelope{
+    color: #F8DA2B;
+}
+.breadcrumb > li + li::before {
+    content: "\f105";
+	font-family: 'FontAwesome'
+}
+.cart-container{
+	position: relative;
+	width: 300%;
+	margin-left: -200px;
+}
+.cart-items{
+	position: absolute;
+	background-color: #fefefe;
+	width: 100%;
+	z-index: 10;
+	padding: 10px;
+	text-align: left;
+}
+.cart-items ul, ol {
+	margin-left: -30px;
+	font-family: "RobotoCondensedLight";
+}

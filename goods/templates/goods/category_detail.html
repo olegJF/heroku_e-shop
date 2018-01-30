@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{%load staticfiles%}
+{% load mptt_tags %}
+{% block breadcrumb %}
+<div class="container "> 
+	<ol class="breadcrumb">
+		<li><a href="{% url 'home' %} ">Главная</a></li>
+		{% for crumb in nodes.get_ancestors %}
+			<li>
+				<a href="{{ crumb.get_absolute_url }}" alt="">
+					{{crumb.name}}
+				</a>
+			</li>
+		{% endfor %}
+		<li class="active">{{nodes.name}}</li>
+	</ol>
+           
+</div>
+{% endblock breadcrumb %}
+
+
+{% block content %}
+		
+	<h2>{{nodes.name}}</h2>
+	<p>{{nodes.description}}</p>
+	
+		 
+		<ul class="children">
+			
+		{% for children in nodes.get_children %}
+			<li>
+				<a href="{{ children.get_absolute_url }}" alt="">
+					{{children.name}}
+				
+					{% if not children.is_leaf_node %}
+						<ul class="children">
+							{% for child in children.get_children %}
+								<li>
+									<a href="{{ child.get_absolute_url }}" alt="">
+										{{child.name}}
+									</a>
+								</li>
+							{% endfor %}
+						</ul>
+						
+					{% endif %}
+					
+				</a>
+			</li>
+		
+		{% empty %}
+			
+			{%for pr in products %}
+				<li>
+				<a href=" {{ pr.get_absolute_url }} " alt="">
+				{{pr.name}}__{{pr.brand.name}}
+				</a></li>			
+			{%endfor%}
+		</ul>
+				
+		{% endfor %}
+    			
+                   
+        
+	
+	<ul>
+	{% for cat in nodes.category_set.all %}
+		<li><a href=" {{ cat.get_absolute_url }} " alt="">{{cat.name}} </a></li>
+		
+	
+	{% endfor %}
+	</ul>
+{% endblock content %}
+
+<!-- 		{% if nodes.product_set.count %}
+			<ul>
+				{%for pr in nodes.product_set.all%}
+					<li>
+					<a href=" {{ pr.get_absolute_url }} " alt="">
+					{{pr.name}}__{{pr.brand.name}}
+					</a></li>			
+				{%endfor%}
+			</ul>
+		{% endif %} -->
+		
+<!-- 					<br>get_siblings {{children.get_siblings}}
+					<br>is_leaf_node {{children.is_leaf_node}}
+					<br>is_child_node {{children.is_child_node}}
+					<br>get_previous_sibling {{children.get_previous_sibling}}
+					<br>get_next_sibling {{children.get_next_sibling}} -->

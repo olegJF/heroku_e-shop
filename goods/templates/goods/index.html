@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{%load staticfiles%}
+{% load mptt_tags %}
+
+{% block content %}
+<div class="container">
+<div class="row">
+	<div class="img">
+	{% recursetree nodes %}
+       
+       <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6 img "> 
+		   <div class="thumbnail">
+				<div class="descr">
+				   <h4>{{ node.name }}</h4>
+						<a href="{{ node.get_absolute_url }}" alt="">
+						{% if node.image %}	
+							<img src="{{ node.image.url }}" class="img-responsive center-block" alt="">
+						{% endif %}
+						</a>
+
+		{#            {% if not node.is_leaf_node %} #}
+		{#                <ul class="children">#}
+		{#                    <a href="{{ node.get_absolute_url }}" alt="">#}
+		{#						{{ children }}#}
+		{#					</a>#}
+		{#                </ul>#}
+		{#            {% endif %}#}
+
+
+
+				</div>
+			</div>
+		</div>	
+
+	{% endrecursetree %}
+	</div>
+	</div>
+</div>
+{% endblock content %}
+
+    {#			<li><a href="{{ category.get_absolute_url }}" alt="">#}
+    {#				{{category.name}} #}
+    {#			</a></li>#}
